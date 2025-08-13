@@ -1,0 +1,71 @@
+\documentclass[11pt,twoside]{article}
+
+\usepackage[headings]{fullpage}
+\usepackage[utopia]{mathdesign}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+\pagestyle{myheadings}
+\markboth{Be rational}{Be rational}
+
+\input{../../fncextra}
+
+\begin{document}
+   
+\begin{center}
+    \bf Let's be rational about this
+\end{center}
+
+Our go-to form of interpolating function is a polynomial. When used globally for interpolation in a stable algorithm such as the barycentric formula, polynomials converge to smooth functions if the nodes are distributed in the manner of Chebyshev points. However, smoothness is a relative property. The function $\tanh(10^6 x)$, for example, is infinitely differentiable everywhere, but it has a derivative at the origin so large that it looks like a jump unless you sample very finely there. 
+
+The barycentric formula for $p$ is 
+\begin{equation}
+  \label{eq:bary}
+  p(x) = \dfrac{\displaystyle \quad \sum_{j=0}^{n} \frac{w_j y_j}{x-t_j} \quad}{\displaystyle\sum_{j=0}^{n} \frac{w_j}{x-t_j}},
+\end{equation}
+where the $(t_j,y_j)$ are interpolation points and the $w_j$ are the barycentric weights. We saw that for a certain choice of weights based on the node locations, $p$ is in fact a polynomial. But the formula guarantees the interpolation conditions for any selection of the weights, and in general, $p$ is a \textbf{rational function}---that is, the ratio of two polynomials of degree $n$ or less. 
+
+Because they can have real or complex \textbf{poles}, which are zeros in the denominator, rational functions may be superior to polynomials for approximating functions that have steep gradients. Moreover, they are not subject to the Runge phenomenon that dictates the stable distribution of nodes for polynomials. 
+
+Suppose we want to construct a rational interpolant to $f(x)$ at nodes $t_j$ given in an interval $[a,b]$. In order to help us find a sensible choice for the barycentric weights, we choose some test points $s_1,\dots, s_m$ in the interval. We would like to impose that $f(s_i) \approx p(s_i)$ at all $i$. Applying~\eqref{eq:bary}, this rearranges into
+\begin{equation}
+  \label{eq:cleared}
+  f(s_i) \cdot\: \displaystyle\sum_{j=0}^{n} \frac{w_j}{s_i - t_j} \; \approx \; \displaystyle\sum_{j=0}^{n} \frac{w_j y_j}{s_i - t_j}, \qquad i=1,\ldots,m,
+\end{equation}
+where the $y_j=f(t_j)$ are known. We now define the $m\times n$ \textbf{Cauchy matrix}
+\begin{equation}
+  \label{eq:cauchy}
+  C_{ij} = \frac{1}{s_i - t_j}, \qquad i=1,\ldots,m, \quad j=0,\ldots,n.
+\end{equation}
+Then~\eqref{eq:cauchy} becomes
+\begin{equation}
+  \label{eq:cauchy2}
+  \m{F} \m{C} \bfw \approx \m{C} \m{Y} \bfw \quad \Rightarrow \quad (\m{F}\m{C} - \m{C} \m{Y})  \bfw \approx \m{0},
+\end{equation}
+where $\m{F}=\diag(f(s_1),\ldots,f(s_m))$ and $\m{Y}=\diag(y_0,\ldots,y_{n})$. 
+
+We could interpret equation~\eqref{eq:cauchy2} as trying to minimize a norm of the vector $(\m{F}\m{C} - \m{C} \m{Y})  \bfw$. That does not seem like a well-posed problem, because we can just multiply any choice of $\bfw$ by a tiny scalar to make this norm get smaller. But a close look at~\eqref{eq:bary} shows that a uniform scaling of the weights actually has no effect on $p$. Therefore, we may add a normalization constraint and get the problem
+\begin{equation}
+  \label{eq:min}
+  \bfw = \operatorname{argmin}_{\norm{\bfv}_2 = 1} \; \norm{\m{A}  \bfv}_2, \qquad \m{A} = \m{F}\m{C} - \m{C} \m{Y}.
+\end{equation}
+We have reached the standard problem of finding the least-significant (i.e., associated with the smallest singular value) right singular vector of $\m{A}$. From there we get everything needed to evaluate $p$ in~\eqref{eq:bary} at any value of $x$.
+
+
+\subsection*{Goals}
+
+You will write a procedure to create rational interpolants and explore it on a few functions.  
+
+\subsection*{Procedure}
+
+\begin{enumerate}
+    \item Write a function \texttt{ratinterp(f, t)} that returns a rational interpolant function given $f(x)$ and the nodes $t_j$. You can assume that the interval of approximation is $[t_0, t_n]$ (the first and last elements of \texttt{t}). You should select $m = 5n+2$ evenly spaced test points in the interval. 
+    
+    Use \texttt{polyinterp} from the book as a guide. Due to the definition~\eqref{eq:cauchy}, you don't want the test points to coincide with any nodes; just delete any such test points and it should be OK. 
+    \item Define the function $f(x) = \tanh(10x) + 2x^2$ and plot it at 1000 points over the interval $[-1,1]$.
+    \item Add to your plot the polynomial interpolant using equally spaced nodes in $[1,1]$ for $n=18$, i.e., there are 19 nodes including the endpoints. (It will not be a great result.)
+    \item Find the rational interpolant $r$ with the same nodes as in the last step. Start a new plot for the error $f(x)-r(x)$ over $[-1,1]$. It should be very small over the whole interval.
+    \item Repeat the previous step for $g(x) = \tanh(100x) + 2x^2$.
+    \item Find an arrangement of 19 nodes that produces a rational interpolant for $g$ whose error is less than $10^{-6}$ in magnitude everywhere in the whole interval.
+\end{enumerate}
+
+\end{document}

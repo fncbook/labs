@@ -1,0 +1,42 @@
+;; RefTeX parse info file
+;; File: /Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex
+;; User: driscoll (Driscoll)
+
+(set reftex-docstruct-symbol '(
+
+
+(xr nil "\\\\\\\\\\\\")
+
+(index-tags)
+
+(is-multi t)
+
+(bibview-cache)
+
+(master-dir . "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/")
+
+(label-numbers ("eq:" . 2))
+
+(bof "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex")
+
+(bof "/Users/driscoll/Dropbox/fnc-extras/labs/fncextra.tex")
+
+(eof "/Users/driscoll/Dropbox/fnc-extras/labs/fncextra.tex")
+
+("eq:2" "e" nil "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil "")
+
+(toc "toc" "      * Goals" "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil 3 "*" "\\subsection*{Goals}" 3296)
+
+(toc "toc" "      * Preparation" "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil 3 "*" "\\subsection*{Preparation}" 3486)
+
+(toc "toc" "      * Procedure" "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil 3 "*" "\\subsection*{Procedure}" 3624)
+
+(toc "toc" "      * Discussion" "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil 3 "*" "\\subsection*{Discussion}" 4500)
+
+("eq:1" "e" "\\bft \\approx c_1 \\bfu_1 + \\cdots + c_4 \\bfu_4 = \\begin{bmatrix} \\bfu_1 & \\bfu_2 & \\bfu_3 & \\bfu_4 " "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil)
+
+(toc "toc" "      * Extra" "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex" nil 3 "*" "\\subsection*{Extra}" 4501)
+
+(eof "/Users/driscoll/Dropbox/fnc-extras/labs/chapter07/WormMotion/WormMotion.tex")
+))
+
